@@ -1,0 +1,51 @@
+{
+    "name": "mckenzieclark/fuzzy",
+    "description": "Fuzzy dates and events",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "fuzzy"
+    ],
+    "support": {
+        "docs": "https://github.com/mckenzieclark/fuzzy/blob/master/README.md",
+        "issues": "https://github.com/mckenzieclark/fuzzy/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "John Clark",
+            "homepage": "https://github.com/mckenzieclark"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0"
+    },
+    "require-dev": {
+      "craftcms/cms": "^3.2.0",
+      "codeception/codeception": "^3.0",
+      "vlucas/phpdotenv": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "mckenzieclark\\fuzzy\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Fuzzy",
+        "handle": "fuzzy",
+        "developer": "John Clark",
+        "developerUrl": "https://github.com/mckenzieclark",
+        "documentationUrl": "https://github.com/mckenzieclark/fuzzy/blob/master/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/mckenzieclark/fuzzy/master/CHANGELOG.md",
+        "components": {
+            "fuzzyDate": "mckenzieclark\\fuzzy\\services\\FuzzyDate",
+            "fuzzyEvent": "mckenzieclark\\fuzzy\\services\\FuzzyEvent",
+            "fuzzyService": "mckenzieclark\\fuzzy\\services\\FuzzyService"
+        },
+        "class": "mckenzieclark\\fuzzy\\Fuzzy"
+    }
+}

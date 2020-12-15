@@ -1,0 +1,20 @@
+{
+  "name": "fuzzy",
+  "version": "1.0.0",
+  "description": "Fuzzy",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "node-sass -w src/assetbundles/fuzzy/src/scss/fuzzy.scss src/assetbundles/fuzzy/dist/css/fuzzy.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "craftcms-sass": "^3.5.1",
+    "node-sass": "^4.14.1"
+  }
+}

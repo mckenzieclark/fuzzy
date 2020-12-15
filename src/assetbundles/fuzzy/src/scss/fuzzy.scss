@@ -1,0 +1,18 @@
+@import '../../../../../node_modules/craftcms-sass/mixins';
+
+.input {
+  input {
+    @include input-styles;
+    padding: 0.6em;
+  }
+}
+
+.inline {
+  display: inline-block;
+}
+
+.year {
+  input {
+    width: 6em;
+  }
+}

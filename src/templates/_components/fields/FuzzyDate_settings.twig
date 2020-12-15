@@ -1,0 +1,34 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Fuzzy plugin for Craft CMS
+ *
+ * FuzzyDate Field Settings
+ *
+ * @author    John Clark
+ * @copyright Copyright (c) 2020 John Clark
+ * @link      https://github.com/mckenzieclark
+ * @package   Fuzzy
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% do view.registerAssetBundle("mckenzieclark\\fuzzy\\assetbundles\\fuzzy\\FuzzyAsset") %}
+
+{{ forms.textField({
+    label: 'Default day',
+    instructions: 'e.g. 1 for first of month',
+    id: 'defaultDay',
+    name: 'defaultDay',
+    value: field['defaultDay']})
+}}
+
+{{ forms.textField({
+    label: 'Default month',
+    instructions: 'e.g. 1 for first month of year',
+    id: 'defaultMonth',
+    name: 'defaultMonth',
+    value: field['defaultMonth']})
+}}

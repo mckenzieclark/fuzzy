@@ -1,0 +1,55 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Fuzzy plugin for Craft CMS 3.x
+ *
+ * FuzzyDate Field Input
+ *
+ * @author    John Clark
+ * @copyright Copyright (c) 2020 John Clark
+ * @link      https://github.com/mckenzieclark
+ * @package   Fuzzy
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% do view.registerAssetBundle("mckenzieclark\\fuzzy\\assetbundles\\fuzzy\\FuzzyAsset") %}
+
+{% set months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+] %}
+
+<div class="select">
+  <select name="{{ name }}[day]" class="select">
+    <option value="">Day</option>
+    {% for i in 1..31 %}
+    <option value="{{ i }}" {% if value.day == i %}selected{% endif %}>{{ i }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+<div class="select">
+  <select name="{{ name }}[month]">
+    <option value="">Month</option>
+    {% for i in months %}
+      <option value="{{ loop.index }}" {% if value.month == loop.index %}selected{% endif %}>{{ i }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+<div class="input inline year">
+  <input type="text" name="{{ name }}[year]" value="{{ value.year }}" placeholder="Year">
+</div>
