@@ -35,6 +35,7 @@ class FuzzyEvent extends Field
      */
     public $defaultDay = 1;
     public $defaultMonth = 1;
+    public $link;
 
     // Static Methods
     // =========================================================================
@@ -49,6 +50,12 @@ class FuzzyEvent extends Field
 
     // Public Methods
     // =========================================================================
+    //
+
+    public function __construct()
+    {
+      parent::__construct();
+    }
 
     /**
      * @inheritdoc
@@ -56,10 +63,6 @@ class FuzzyEvent extends Field
     public function rules()
     {
         $rules = parent::rules();
-        $rules = array_merge($rules, [
-            ['defaultDay', 'int'],
-            ['defaultDay', 'default', 'value' => '1'],
-        ]);
         return $rules;
     }
 
@@ -76,7 +79,8 @@ class FuzzyEvent extends Field
      */
     public function normalizeValue($value, ElementInterface $element = null)
     {
-        return $value;
+      if(is_array($value)) return $value;
+      return json_decode($value);
     }
 
     /**
@@ -84,7 +88,15 @@ class FuzzyEvent extends Field
      */
     public function serializeValue($value, ElementInterface $element = null)
     {
-        return parent::serializeValue($value, $element);
+      return parent::serializeValue($value, $element);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function hasContentColumn(): bool
+    {
+      return false;
     }
 
     /**
@@ -118,6 +130,7 @@ class FuzzyEvent extends Field
             'id' => $id,
             'name' => $this->handle,
             'namespace' => $namespacedId,
+            'settings' => Fuzzy::getInstance()->getSettings(),
             'prefix' => Craft::$app->getView()->namespaceInputId(''),
             ];
         $jsonVars = Json::encode($jsonVars);
@@ -131,8 +144,16 @@ class FuzzyEvent extends Field
                 'value' => $value,
                 'field' => $this,
                 'id' => $id,
+                'settings' => Fuzzy::getInstance()->getSettings(),
                 'namespacedId' => $namespacedId,
             ]
         );
+    }
+
+    public function afterElementSave($element, $isNew)
+    {
+      var_dump($element->fuzzyEvent);
+      exit;
+      //var_dump($isNew);exit;
     }
 }

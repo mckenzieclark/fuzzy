@@ -41,7 +41,7 @@ class Install extends Migration
     {
         $this->driver = Craft::$app->getConfig()->getDb()->driver;
         if ($this->createTables()) {
-            $this->createIndexes();
+            //$this->createIndexes();
             $this->addForeignKeys();
             // Refresh the db schema caches
             Craft::$app->db->schema->refresh();
@@ -83,7 +83,10 @@ class Install extends Migration
                     'dateUpdated' => $this->dateTime()->notNull(),
                     'uid' => $this->uid(),
                     'siteId' => $this->integer()->notNull(),
-                    'some_field' => $this->string(255)->notNull()->defaultValue(''),
+                    'type' => $this->string(255)->notNull()->defaultValue(''),
+                    'day' => $this->integer(),
+                    'month' => $this->integer(),
+                    'year' => $this->integer()
                 ]
             );
         }
@@ -94,40 +97,16 @@ class Install extends Migration
     /**
      * @return void
      */
-    protected function createIndexes()
-    {
-        $this->createIndex(
-            $this->db->getIndexName(
-                '{{%fuzzy_events}}',
-                'some_field',
-                true
-            ),
-            '{{%fuzzy_events}}',
-            'some_field',
-            true
-        );
-        // Additional commands depending on the db driver
-        switch ($this->driver) {
-            case DbConfig::DRIVER_MYSQL:
-                break;
-            case DbConfig::DRIVER_PGSQL:
-                break;
-        }
-    }
-
-    /**
-     * @return void
-     */
     protected function addForeignKeys()
     {
         $this->addForeignKey(
-            $this->db->getForeignKeyName('{{%fuzzy_events}}', 'siteId'),
+            $this->db->getForeignKeyName('{{%fuzzy_events}}', 'id'),
             '{{%fuzzy_events}}',
-            'siteId',
-            '{{%sites}}',
+            'id',
+            '{{%elements}}',
             'id',
             'CASCADE',
-            'CASCADE'
+            null
         );
     }
 

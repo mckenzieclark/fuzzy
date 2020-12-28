@@ -17,12 +17,14 @@ use mckenzieclark\fuzzy\variables\FuzzyVariable;
 use mckenzieclark\fuzzy\models\Settings;
 use mckenzieclark\fuzzy\fields\FuzzyDate as FuzzyDateField;
 use mckenzieclark\fuzzy\fields\FuzzyEvent as FuzzyEventField;
+use mckenzieclark\fuzzy\elements\FuzzyEvent as FuzzyEvent;
 
 use Craft;
 use craft\base\Plugin;
 use craft\services\Plugins;
 use craft\events\PluginEvent;
 use craft\services\Fields;
+use craft\services\Elements;
 use craft\web\twig\variables\CraftVariable;
 use craft\events\RegisterComponentTypesEvent;
 
@@ -59,7 +61,7 @@ class Fuzzy extends Plugin
     /**
      * @var bool
      */
-    public $hasCpSettings = false;
+    public $hasCpSettings = true;
 
     /**
      * @var bool
@@ -104,6 +106,13 @@ class Fuzzy extends Plugin
                 }
             }
         );
+
+      Event::on(Elements::class,
+          Elements::EVENT_REGISTER_ELEMENT_TYPES,
+          function(RegisterComponentTypesEvent $event) {
+              $event->types[] = FuzzyEvent::class;
+          }
+      );
 
         Craft::info(
             Craft::t(

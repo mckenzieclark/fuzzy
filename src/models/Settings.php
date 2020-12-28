@@ -28,7 +28,24 @@ class Settings extends Model
     /**
      * @var string
      */
-    public $someAttribute = 'Some Default';
+    public $defaultDay = 1;
+    public $defaultMonth = 1;
+    public $eventTypes = [
+      'army' => [
+        'name' => 'Army Service',
+        'endDate' => true,
+        'location' => true
+      ],
+      'wedding' => [
+        'name' => 'Wedding',
+        'related' => true,
+        'location' => true
+      ],
+      'divorce' => [
+        'name' => 'Divorce',
+        'related' => true
+      ]
+    ];
 
     // Public Methods
     // =========================================================================
@@ -39,8 +56,10 @@ class Settings extends Model
     public function rules()
     {
         return [
-            ['someAttribute', 'string'],
-            ['someAttribute', 'default', 'value' => 'Some Default'],
+            ['defaultDay', 'number'],
+            ['defaultDay', 'default', 'value' => 1],
+            ['defaultMonth', 'number'],
+            ['defaultMonth', 'default', 'value' => 1],
         ];
     }
 }

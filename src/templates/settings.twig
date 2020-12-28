@@ -17,18 +17,77 @@
 
 {% do view.registerAssetBundle("mckenzieclark\\fuzzy\\assetbundles\\fuzzy\\FuzzyAsset") %}
 
+<h2>Dates</h2>
+
 {{ forms.textField({
     label: 'Default day',
-    instructions: 'e.g. 1 for first of month',
+    instructions: 'e.g. <strong>1</strong> for first of month',
     id: 'defaultDay',
     name: 'defaultDay',
-    value: settings['defaultDay']})
+    value: settings.defaultDay })
 }}
 
 {{ forms.textField({
     label: 'Default month',
-    instructions: 'e.g. 1 for first of month',
-    id: 'defaultDay',
-    name: 'defaultDay',
-    value: settings['defaultDay']})
+    instructions: 'e.g. <strong>1</strong> for first of month',
+    id: 'defaultMonth',
+    name: 'defaultMonth',
+    value: settings.defaultMonth })
 }}
+
+<h2>Events</h2>
+
+<ul>
+  {% for key, type in settings.eventTypes %}
+    <li><a href="#{{ key }}">{{ type.name }}</a></li>
+  {% endfor %}
+</ul>
+
+{% for key, type in settings.eventTypes %}
+  <div id="key" style="margin-top: 2em">
+    <h2>{{ type.name }}</h2>
+    {{ forms.textField({
+        label: 'Name',
+        id: key ~ '-name',
+        name: 'eventTypes[' ~ key ~ '][name]',
+        value: type.name })
+    }}
+    {{ forms.lightswitch({
+      label: 'End date',
+      id: key ~ '-endDate',
+      name: 'eventTypes[' ~ key ~ '][endDate]',
+      on: type.endDate is defined and type.endDate ? true,
+      value: true })
+    }}
+    {{ forms.lightswitch({
+      label: 'Location',
+      id: key ~ '-location',
+      name: 'eventTypes[' ~ key ~ '][location]',
+      on: type.location is defined and type.location ? true,
+      value: true })
+    }}
+    {{ forms.lightswitch({
+      label: 'Relations',
+      id: key ~ '-related',
+      name: 'eventTypes[' ~ key ~ '][related]',
+      on: type.related is defined and type.related ? true,
+      value: true })
+    }}
+
+    <div id="{{ key }}-relations" class="">
+      <h3>Relation Sections</h3>
+
+      {% set sections = craft.sections.getAllSections()|map(s => { label: s.name, value: s.handle }) %}
+
+      {{ forms.multiselect({
+          options: sections,
+          id: key ~ '-relatedSections',
+          hasOptGroups: false,
+          name: 'eventTypes[' ~ key ~ '][relatedSections]',
+          values: type.relatedSections
+        })
+      }}
+    </div>
+
+  </div>
+{% endfor %}
