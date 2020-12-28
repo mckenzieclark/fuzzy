@@ -15,12 +15,26 @@ To install the plugin, follow these instructions.
 1. Open your terminal and go to your Craft project:
 
         cd /path/to/project
+        
+2. Create a plugins folder:
 
-2. Then tell Composer to load the plugin:
+        mkdir plugins && cd plugins
+        git clone git@github.com:mckenzieclark/fuzzy.git && cd ../
+        
+3. Open your composer.json file and add the following:
+
+        "repositories": [
+          {
+            "type": "path",
+            "url":  "plugins/fuzzy"
+          }
+        ]
+
+4. Then tell Composer to load the plugin:
 
         composer require mckenzieclark/fuzzy
 
-3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Fuzzy.
+5. In the Control Panel, go to Settings → Plugins and click the “Install” button for Fuzzy.
 
 ## Fuzzy Overview
 
