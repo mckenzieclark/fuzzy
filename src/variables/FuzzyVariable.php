@@ -45,6 +45,11 @@ class FuzzyVariable
       return Fuzzy::getInstance()->fuzzyDate->timestamp($date);
     }
 
+    public function diff($date1, $date2, $options = null)
+    {
+      return Fuzzy::getInstance()->fuzzyDate->diff($date1, $date2, $options);
+    }
+
     public function ago($date) 
     {
       return Fuzzy::getInstance()->fuzzyDate->ago($date);

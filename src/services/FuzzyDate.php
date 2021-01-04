@@ -62,6 +62,16 @@ class FuzzyDate extends Component
       return $newDate->format('U');
     }
 
+    public function diff($date1, $date2, $options)
+    {
+      $date1 = $this->_getDateTime($date1);
+      $date2 = $this->_getDateTime($date2);
+      if(!$options) {
+        $options = ["years" => true, "months" => true, "seconds" => true];
+      }
+      return $this->_dateDifference($date1, $date2, $options);
+    }
+
 
     public function ago($date)
     {
@@ -72,6 +82,42 @@ class FuzzyDate extends Component
 
     // Private Methods
     // =========================================================================
+
+    private function _dateDifference($date1, $date2, $options)
+    {
+      $interval = date_diff($date1, $date2);
+      $yearsText = $this->_pluralise($interval->y, '%y year');
+
+      if(isset($options['months']) && $interval->y > 0 && $interval->m > 0) {
+        if(!isset($options['seconds']) || $interval->s == 0) {
+          $monthsPrefix = ' and ';
+        }
+        else {
+          $monthsPrefix = ', ';
+        }
+      }
+      else {
+        $monthsPrefix = null;
+      }
+
+      if(isset($options['seconds']) && $interval->y > 0 && $interval->s > 0) {
+        $secondsPrefix = ' and ';
+      }
+      else {
+        $secondsPrefix = null;
+      }
+
+      $monthsText = isset($options['months']) ? $this->_pluralise($interval->m, '%m month', $monthsPrefix) : "";
+      $secondsText = isset($options['seconds']) ? $this->_pluralise($interval->s, '%s second', $secondsPrefix) : "";
+      return $interval->format("$yearsText $monthsText $secondsText");
+    }
+
+    private function _pluralise($number, $suffix, $prefix = null)
+    {
+      $text = $prefix;
+      $text.= $number > 0 ? ($number == 1 ? "$suffix" : "{$suffix}s") : "";
+      return $text;
+    }
 
     private function _missing($date)
     {
