@@ -152,8 +152,8 @@ class FuzzyEvent extends Field
 
     public function afterElementSave($element, $isNew)
     {
-      var_dump($element->fuzzyEvent);
-      exit;
+      //var_dump($element->fuzzyEvent);
+      //exit;
       //var_dump($isNew);exit;
     }
 }
