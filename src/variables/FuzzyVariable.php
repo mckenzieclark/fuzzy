@@ -11,6 +11,7 @@
 namespace mckenzieclark\fuzzy\variables;
 
 use mckenzieclark\fuzzy\Fuzzy;
+use mckenzieclark\fuzzy\fields\FuzzyDate;
 use DateTime;
 
 use Craft;
@@ -22,6 +23,9 @@ use Craft;
  */
 class FuzzyVariable
 {
+  
+    public $entryArray;
+
     public function __construct()
     {
     }
@@ -53,5 +57,16 @@ class FuzzyVariable
     public function ago($date) 
     {
       return Fuzzy::getInstance()->fuzzyDate->ago($date);
+    }
+
+    public function entries($query, $options = null)
+    {
+      $this->entryArray = $query->all();
+      return $this;
+    }
+
+    public function sort($query, $orderBy = null)
+    {
+      return Fuzzy::getInstance()->fuzzyDate->sort($query, $orderBy);
     }
 }

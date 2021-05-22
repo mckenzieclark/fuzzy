@@ -11,6 +11,7 @@
 namespace mckenzieclark\fuzzy\fields;
 
 use mckenzieclark\fuzzy\Fuzzy;
+use mckenzieclark\fuzzy\elements\FuzzyEvent as FuzzyEventElement;
 use mckenzieclark\fuzzy\assetbundles\fuzzyeventfield\FuzzyEventFieldAsset;
 
 use Craft;
@@ -152,8 +153,9 @@ class FuzzyEvent extends Field
 
     public function afterElementSave($element, $isNew)
     {
-      //var_dump($element->fuzzyEvent);
-      //exit;
-      //var_dump($isNew);exit;
+      var_dump($element->id);
+      var_dump($element->fuzzyEvent);
+      $event = new FuzzyEventElement($element);
+      var_dump($event);exit;
     }
 }

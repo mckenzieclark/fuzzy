@@ -36,7 +36,8 @@ class FuzzyAsset extends AssetBundle
         ];
 
         $this->js = [
-            'js/fuzzy.js',
+          'js/fuzzy.js',
+          'js/FuzzyElementSelectInput.js'
         ];
 
         $this->css = [

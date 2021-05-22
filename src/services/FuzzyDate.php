@@ -79,6 +79,40 @@ class FuzzyDate extends Component
       return $this->_time_elapsed_string($newDate->format('Y-m-d'));
     }
 
+    public function sort($query, $orderBy) {
+      $orderParts = explode(' ', $orderBy);
+      $type = gettype($query);
+
+      if(!count($orderParts)) return $type == "object" ? $query->all : $query;
+
+      $fieldHandle = $orderParts[0];
+      $field = Craft::$app->fields->getFieldByHandle($orderParts[0]);
+      $order = count($orderParts) > 1 ? $orderParts[1] : 'asc';
+
+      /*
+      if($type == "array") {
+      }
+
+      elseif($type == "object") {
+       */
+
+      if(get_class($field) == 'mckenzieclark\fuzzy\fields\FuzzyDate') {
+        $entryArray = $type == "object" ? $query->all() : $query;
+        if(empty($entryArray)) return null;
+
+        usort($entryArray, function($a, $b) use ($fieldHandle, $order) {
+          $timeA = Fuzzy::getInstance()->fuzzyDate->timestamp($a->$fieldHandle);
+          $timeB = Fuzzy::getInstance()->fuzzyDate->timestamp($b->$fieldHandle);
+          return ($timeA < $timeB) ? ($order == "desc" ? 1 : -1) : ($order == "desc" ? -1 : 1);
+        });
+        return $entryArray;
+      }
+      else {
+        return $type == "object" ? $query->orderBy($orderBy)->all() : $query;
+      }
+
+      /*  } */
+    }
 
     // Private Methods
     // =========================================================================

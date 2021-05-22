@@ -79,6 +79,7 @@ class Install extends Migration
                 '{{%fuzzy_events}}',
                 [
                     'id' => $this->primaryKey(),
+                    'elementId' => $this->integer()->notNull(),
                     'dateCreated' => $this->dateTime()->notNull(),
                     'dateUpdated' => $this->dateTime()->notNull(),
                     'uid' => $this->uid(),
