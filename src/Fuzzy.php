@@ -12,11 +12,9 @@ namespace mckenzieclark\fuzzy;
 
 use mckenzieclark\fuzzy\services\FuzzyService;
 use mckenzieclark\fuzzy\services\FuzzyDate as FuzzyDateService;
-use mckenzieclark\fuzzy\services\FuzzyEvent as FuzzyEventService;
 use mckenzieclark\fuzzy\variables\FuzzyVariable;
 use mckenzieclark\fuzzy\models\Settings;
 use mckenzieclark\fuzzy\fields\FuzzyDate as FuzzyDateField;
-use mckenzieclark\fuzzy\fields\FuzzyEvent as FuzzyEventField;
 
 use Craft;
 use craft\base\Plugin;
@@ -82,7 +80,6 @@ class Fuzzy extends Plugin
             Fields::EVENT_REGISTER_FIELD_TYPES,
             function (RegisterComponentTypesEvent $event) {
                 $event->types[] = FuzzyDateField::class;
-                $event->types[] = FuzzyEventField::class;
             }
         );
 

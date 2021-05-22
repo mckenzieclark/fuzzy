@@ -2,7 +2,7 @@
     "name": "mckenzieclark/fuzzy",
     "description": "Fuzzy dates and events",
     "type": "craft-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "keywords": [
         "craft",
         "cms",
@@ -43,7 +43,6 @@
         "changelogUrl": "https://raw.githubusercontent.com/mckenzieclark/fuzzy/master/CHANGELOG.md",
         "components": {
             "fuzzyDate": "mckenzieclark\\fuzzy\\services\\FuzzyDate",
-            "fuzzyEvent": "mckenzieclark\\fuzzy\\services\\FuzzyEvent",
             "fuzzyService": "mckenzieclark\\fuzzy\\services\\FuzzyService"
         },
         "class": "mckenzieclark\\fuzzy\\Fuzzy"
