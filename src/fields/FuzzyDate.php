@@ -79,8 +79,8 @@ class FuzzyDate extends Field
      */
     public function normalizeValue($value, ElementInterface $element = null)
     {
-      if(is_array($value)) return $value;
-      return json_decode($value);
+      if(is_string($value)) return json_decode($value);
+      return $value;
     }
 
     /**
